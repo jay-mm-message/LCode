@@ -1,93 +1,39 @@
 #include <iostream>
+#include <set>
+
 using namespace std;
 
-string sliding_windows(string s,
-                        int sliding_begin,
-                        int sliding_len) 
-{
-    
-    string words;
-    for(int i = sliding_begin ; i < sliding_len ; ++i) {
-        words += s[i];
+
+void show(set<char> st) {
+    for (char c : st) {
+        cout << c;
     }
-    //cout << words << ", size: " << words.size() << endl;
-
-    return words;
-}
-
-string sliding_windows_discard_some_letter(string s,
-                        int sliding_begin,
-                        int sliding_len) 
-{
-    
-    string words;
-
-    vector<int> letterCnt(128);
-    for(int i = sliding_begin ; i < sliding_len ; ++i) {
-        if (++letterCnt[s[i]] > 1) {
-            return "";
-        } else {
-            words += s[i];
-        }
-    }
-    //cout << words << ", size: " << words.size() << endl;
-
-    return words;
-}
-
-void sliding_windows_move(string s,
-                            int sliding_begin,
-                            int sliding_len) 
-{
-    string words;
-    while(sliding_begin + sliding_len < s.size() + 1) {
-        //words = sliding_windows(s, sliding_begin, sliding_len + sliding_begin);
-        words = sliding_windows_discard_some_letter(
-                s, sliding_begin, sliding_len + sliding_begin);
-        ++sliding_begin;
-        if (!words.empty())
-            cout << words << endl;
-    }
-}
-
-string sliding_windows_move_find_max_substr(string s,
-                            int sliding_begin,
-                            int sliding_len) 
-{
-    string words, max_words = "";
-    while(sliding_begin + sliding_len < s.size() + 1) {
-        //words = sliding_windows(s, sliding_begin, sliding_len + sliding_begin);
-        words = sliding_windows_discard_some_letter(
-                s, sliding_begin, sliding_len + sliding_begin);
-        ++sliding_begin;
-        if (!words.empty()) {
-            //cout << words << ", " << words.size() << endl;
-            if (max_words.size() == 0 || max_words.size() < words.size()) {
-                max_words = words;
-            }
-        }
-    }
-    //cout << "max_words:" << max_words << endl;
-    return max_words;
+    cout << endl;
 }
 
 int lengthOfLongestSubstring(string s) {
+    int n = s.size();
+    set<char> st;
 
+    int spliding_windows_begin = 0;
+    int spliding_windows_end = 0;
     int maxLen = 0;
-    string substr = "", max_substr = "";
-    for (size_t i = s.size() ; i > 0; --i)
-    {
-        /* code */
-        int sliding_begin = 0;
-        int sliding_len = i;
-        //sliding_windows_move(s, sliding_begin, sliding_len);
-        substr = sliding_windows_move_find_max_substr(s, sliding_begin, sliding_len);
-        if (max_substr.size() < substr.size()) {
-            max_substr = substr;
+
+    while(spliding_windows_end < n) {
+        if (st.find(s[spliding_windows_end]) == st.end()) {
+            st.insert(s[spliding_windows_end]);
+            maxLen = max(maxLen, spliding_windows_end - spliding_windows_begin + 1);
+            ++spliding_windows_end;
+        }
+        else
+        {
+            //erase before store of st
+            st.erase(st.find(s[spliding_windows_begin]));
+            // shift
+            ++spliding_windows_begin;
         }
     }
-    maxLen = max_substr.size();
-    cout << "substr: " << max_substr << ", size: " << maxLen << endl;
+    show(st);
     return maxLen;
 }
 
@@ -95,8 +41,8 @@ int main(void) {
     //string s = "abcabcbb";
     //string s = "bbbbb";
     //string s = "pwwkew";
-    //string s = "c";
-    //string s = "loddktdji";
+    //string s = "c"
+    string s = "loddktdji";
     lengthOfLongestSubstring(s);
     return 0;
 }
