@@ -31,8 +31,21 @@ string minWindow(string s, string t) {
                 minLen = i - spliding_windows_left + 1;
                 min_left = spliding_windows_left;
             }
+
+            // cout << "before," <<"++t_map[s[spliding_windows_left]];" << endl;
+            // for(int i = 0 ; i < 128 ; ++i) {
+            //     if (t_map[i]> 0)
+            //         cout << static_cast<char>(i) << ' ';
+            // }
+            // cout << endl;
             // spliding windows left keep move next
             ++t_map[s[spliding_windows_left]];
+            // cout << "after," << "++t_map[s[spliding_windows_left]];" << endl;
+            // for(int i = 0 ; i < 128 ; ++i) {
+            //     if (t_map[i] > 0)
+            //         cout << static_cast<char>(i) << ' ';
+            // }
+            // cout << endl;
             //t_map[s[spliding_windows_left]] = t_map[s[spliding_windows_left]] + 1;
             // find new same element bloning to 'a'
             if (t_map[s[spliding_windows_left]] > 0) {
@@ -56,13 +69,16 @@ void show(string ss, string t, string minWindows) {
 }
 int main() {
 
-    string ss = "ADOBECODEBANC";
-    string t = "ABC";
+    string ss = "abc";
+    string t = "b";
     show(ss, t, minWindow(ss, t));
 
     ss = "abc";
     t = 'b';
     show(ss, t, minWindow(ss, t));
+
+    ss = "ADOBECODEBANC";
+    t = 'b';
 
     cout << endl;
     return 0;
