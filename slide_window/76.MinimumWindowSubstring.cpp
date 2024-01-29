@@ -4,6 +4,15 @@
 #include <iostream>
 using namespace std;
 
+
+void show_t_map(vector<int> t_map, string tags) {
+    cout << tags << "," <<"++t_map[s[spliding_windows_left]];" << endl;
+    for(int i = 0 ; i < 128 ; ++i) {
+        if (t_map[i]> 0)
+            cout << static_cast<char>(i) << ' ';
+    }
+    cout << endl;
+}
 string minWindow(string s, string t) {
 
     int min_left = -1, minLen = INT_MAX;
@@ -32,20 +41,10 @@ string minWindow(string s, string t) {
                 min_left = spliding_windows_left;
             }
 
-            // cout << "before," <<"++t_map[s[spliding_windows_left]];" << endl;
-            // for(int i = 0 ; i < 128 ; ++i) {
-            //     if (t_map[i]> 0)
-            //         cout << static_cast<char>(i) << ' ';
-            // }
-            // cout << endl;
+            //show_t_map(t_map, "before");
             // spliding windows left keep move next
             ++t_map[s[spliding_windows_left]];
-            // cout << "after," << "++t_map[s[spliding_windows_left]];" << endl;
-            // for(int i = 0 ; i < 128 ; ++i) {
-            //     if (t_map[i] > 0)
-            //         cout << static_cast<char>(i) << ' ';
-            // }
-            // cout << endl;
+            //show_t_map(t_map, "after");
             //t_map[s[spliding_windows_left]] = t_map[s[spliding_windows_left]] + 1;
             // find new same element bloning to 'a'
             if (t_map[s[spliding_windows_left]] > 0) {
@@ -69,8 +68,8 @@ void show(string ss, string t, string minWindows) {
 }
 int main() {
 
-    string ss = "abc";
-    string t = "b";
+    string ss = "ADOBECODEBANC";
+    string t = "ABC";
     show(ss, t, minWindow(ss, t));
 
     ss = "abc";
