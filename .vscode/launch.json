@@ -26,12 +26,20 @@
         }
     ],
     "configurations": [
-        
-        
         {
-            "name": "C/C++: g++ build and debug active file",
+            "name": "(lldb) Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "MIMode": "lldb"
+        },
+        
+        
+        {        
+            "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
+            //"program": "${workspaceFolder}/a.out",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
                 "-std=c++17",
@@ -40,7 +48,8 @@
                 "-g",
                 "${fileDirname}/*.cpp",
                 "-o",
-                "${workspaceFolder}/out/${fileBasenameNoExtension}.o"
+                //"${workspaceFolder}/out/${fileBasenameNoExtension}.o"
+                "${workspaceFolder}/${fileBasenameNoExtension}.o"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -48,6 +57,27 @@
             "externalConsole": false,
             "MIMode": "lldb",
             "preLaunchTask": "C/C++: g++ build active file"
+        
+
+            //"name": "C/C++: g++ build and debug active file",
+            //"type": "cppdbg",
+            //"request": "launch",
+            //"program": "${fileDirname}/${fileBasenameNoExtension}",
+            // "args": [
+            //     "-std=c++17",
+            //     "-I",
+            //     "${fileDirname}",
+            //     "-g",
+            //     "${fileDirname}/*.cpp",
+            //     "-o",
+            //     "${workspaceFolder}/out/${fileBasenameNoExtension}.o"
+            // ],
+            // "stopAtEntry": false,
+            // "cwd": "${fileDirname}",
+            // "environment": [],
+            // "externalConsole": false,
+            // "MIMode": "lldb",
+            // "preLaunchTask": "C/C++: g++ build active file"
         }
     ],
     "version": "2.0.0"
